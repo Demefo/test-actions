@@ -22,7 +22,7 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
       - name: deploy using scp
         run: |
-          scp -r -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./* ${{ secrets.SSH_USER }}@{{ secrets.SSH_HOST }}:/home/ubuntu/
+          scp -r -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/ubuntu/
       - name: Restart Application
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "npm install && pm2 restart 0"
