@@ -77,4 +77,4 @@ jobs:
             cd test-actions
             lsof -ti:3000 | xargs -r kill -9 || true
             git pull origin feature
-            node server.js 
+            screen -dmS node-app bash -c 'cd ~/test-actions && node server.js'
