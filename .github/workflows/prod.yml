@@ -10,61 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    #   - name: Checkout repository
-    #     uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    #   - name: Setup Node.js
-    #     uses: actions/setup-node@v3
-    #     with:
-    #       node-version: '18'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' 
 
-    #   - name: Install dependencies
-    #     run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    #   - name: Simple Smoke Test (Check if the app starts)
-    #     id: smoke-test
-    #     run: |
-    #       # Find the main entry point, usually defined in package.json
-    #       APP_ENTRY_POINT=$(node -e "console.log(require('./package.json').main)")
-
-    #       # If no main script is defined, assume a common one like 'index.js' or 'app.js'
-    #       if [ -z "$APP_ENTRY_POINT" ]; then
-    #         if [ -f "index.js" ]; then
-    #           APP_ENTRY_POINT="index.js"
-    #         elif [ -f "app.js" ]; then
-    #           APP_ENTRY_POINT="app.js"
-    #         else
-    #           echo "Error: Could not find the main entry point for the application."
-    #           exit 1
-    #         fi
-    #       fi
-          
-    #       echo "Found application entry point: $APP_ENTRY_POINT"
-          
-    #       # Start the server in the background
-    #       node "$APP_ENTRY_POINT" &
-    #       SERVER_PID=$!
-    #       echo "Server started with PID: $SERVER_PID"
-
-    #       # Wait a few seconds for the server to start
-    #       sleep 5
-
-    #       # Attempt to reach the server on common ports
-    #       # Change these ports if your app uses a different one
-    #       if curl -f http://localhost:3000; then
-    #         echo "Smoke test passed on port 3000"
-    #       elif curl -f http://localhost:8080; then
-    #         echo "Smoke test passed on port 8080"
-    #       else
-    #         echo "Simple smoke test failed: Server not reachable on common ports."
-    #         kill "$SERVER_PID"
-    #         exit 1
-    #       fi
-
-    #       kill "$SERVER_PID"
-    #     env:
-    #       # Set common ports as environment variables if your app picks them up that way
-    #       PORT: 3000
+      - name: Simple Smoke Test (Check if the app starts)
+        run: |
+          npm install express 
+          node app.js &
+          sleep 5
+          curl -f http://localhost:3000 || { echo "Simple smoke test failed: Server not reachable"; exit 1; }
+        env:
+          PORT: 3000 
           
       - name: Deploy to AWS EC2
         if: success()
