@@ -74,7 +74,8 @@ jobs:
           username: 'ubuntu'
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            git clone https://github.com/Demefo/test-actions.git
             cd test-actions
             git checkout feature
+            git pull origin feature
             npm install
+            node server.js 
