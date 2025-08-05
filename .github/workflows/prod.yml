@@ -24,7 +24,7 @@ jobs:
       - name: Simple Smoke Test (Check if the app starts)
         run: |
           npm install express 
-          node app.js &
+          node server.js &
           sleep 5
           curl -f http://localhost:3000 || { echo "Simple smoke test failed: Server not reachable"; exit 1; }
         env:
