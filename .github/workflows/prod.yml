@@ -75,5 +75,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd test-actions
+            lsof -ti:3000 | xargs -r kill -9 || true
             git pull origin feature
             node server.js 
