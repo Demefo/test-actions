@@ -75,7 +75,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd test-actions
-            git checkout feature
             git pull origin feature
-            npm install
             node server.js 
