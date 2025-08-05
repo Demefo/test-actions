@@ -78,4 +78,3 @@ jobs:
             cd test-actions
             git checkout feature
             npm install
-            pm2 restart all
